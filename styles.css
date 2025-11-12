@@ -1,0 +1,464 @@
+body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #f0f0f0;
+}
+
+.meeting-app {
+    width: 90%;
+    max-width: 1200px;
+    height: 90%;
+    background-color: #212121;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative; /* For modal positioning */
+}
+
+/* --- Header (Top Bar) --- */
+.app-header {
+    background-color: #2c2c2c;
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    border-bottom: 1px solid #333;
+}
+
+.app-title {
+    color: #b0b0b0;
+}
+
+.app-controls {
+    display: flex;
+    align-items: center;
+}
+
+.app-controls span {
+    color: #8ab4f8; /* Blue link */
+    margin-right: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.view-btn {
+    background: none;
+    border: 1px solid #666;
+    color: #f0f0f0;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+/* --- Main Content Area --- */
+.app-main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* Placeholder for the main video/content area */
+}
+
+/* --- Settings Modal --- */
+.settings-modal {
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    
+    /* CHANGES HERE for responsiveness */
+    width: 90%; 
+    max-width: 900px; /* Optional: Keep the original max size */
+    height: 90%; 
+    max-height: 600px; /* Optional: Keep the original max size */
+    
+    display: flex; 
+    flex-direction: column;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.close-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.close-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.close-btn.red { background-color: #ff5f56; }
+.close-btn.yellow { background-color: #ffbd2e; }
+.close-btn.green { background-color: #27c93f; }
+
+.modal-content {
+    display: flex;
+    flex-grow: 1;
+    padding: 0;
+}
+
+/* --- Settings Sidebar --- */
+.sidebar {
+    width: 250px;
+    padding: 15px 0;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-box {
+    margin: 0 15px 20px;
+    background-color: #2c2c2c;
+    border-radius: 6px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    color: #888;
+    margin-right: 8px;
+}
+
+.search-box input {
+    background: none;
+    border: none;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    width: 100%;
+    outline: none;
+}
+
+.settings-nav {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px 10px 30px;
+    text-decoration: none;
+    color: #404040;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+.nav-item i {
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+    color: #404040;
+}
+
+.nav-item.active {
+    background-color: #0b5394; /* Darker blue for active item */
+    color: #fff;
+    border-left: 2px solid #1a73e8; /* Blue accent bar */
+    padding-left: 28px;
+}
+
+/* Targets the icon (i tag) inside the active navigation item */
+.nav-item.active i {
+    color: white; 
+}
+
+/* --- Main Settings Panel --- */
+.main-settings {
+    flex-grow: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+}
+
+.main-settings h2 {
+    color: #f0f0f0;
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.main-settings h3 {
+    color: #404040;
+    font-size: 1.1em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50%; /* Control width for select groups */
+}
+
+.setting-group label {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #404040;
+}
+
+.setting-select {
+    background-color: #2c2c2c;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    padding: 8px 10px;
+    border-radius: 4px;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.setting-select.font-type {
+    width: 200px; /* Adjust size based on image */
+}
+
+.setting-select.position-select {
+    width: 200px;
+}
+
+/* New rule to target only the desired label */
+.dim-video-label {
+    color: #404040; /* Sets the specific label to dark grey */
+}
+
+
+/* --- Toggle Switch (Standard dark mode switch) --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #444;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+/* New rule: Targets the slider that is associated with a disabled checkbox. */
+input[disabled] + .slider:before {
+    background-color: #1c1c1c; /* Darker gray for the disabled/dimmed toggle thumb */
+}
+
+input:checked + .slider {
+    background-color: #1a73e8; /* Blue when checked */
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 20px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* --- Caption Color Boxes --- */
+.caption-color-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.color-box {
+    width: 50px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    border: 2px solid transparent;
+}
+
+.color-box.selected-caption { background-color: black; color: #404040; border-color: #404040; }
+.color-box.white-caption { background-color: black; color: #404040; }
+.color-box.dark-red-caption { background-color: black; color: #404040; } /* Grey */
+.color-box.dark-caption { background-color: black; color: #404040; }
+
+
+
+.position-preview {
+    /* Changes to remove the bar */
+    background-color: transparent; 
+    height: 0; 
+    
+    /* Keep width and margin for potential future use or spacing */
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+
+/* --- Footer (Bottom Bar) --- */
+.app-footer {
+    background-color: #2c2c2c;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #333;
+    z-index: 5;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-indicator.red-status {
+    background-color: #e53935;
+}
+
+.footer-center {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-btn {
+    background: none;
+    border: none;
+    color: #404040;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7em;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.footer-btn i {
+    font-size: 1.2em;
+    margin-bottom: 3px;
+    color: #404040;
+}
+
+/* Override for the "More" button (text and icon) */
+.footer-more-btn,
+.footer-more-btn i {
+    color: #f0f0f0 !important; /* Forces the color back to white */
+}
+
+.share-icon {
+    color: #388e3c; /* Green color for share */
+}
+
+.footer-more-btn:hover {
+    background-color: #808080; /* Grey hover color */
+}
+
+.end-btn {
+    background-color: #ff3b30;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.end-btn:hover {
+    background-color: #cc2a24;
+}
+
+.main-content-image {
+    /* Fills the entire main area */
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative; /* Establish stacking context */
+    z-index: 5; /* Lower than the modal */
+}
+
+.main-content-image img {
+    /* Critical for responsive scaling */
+    max-width: 100%; 
+    max-height: 100%;
+    object-fit: contain; /* Ensures the whole image fits and maintains aspect ratio */
+}
